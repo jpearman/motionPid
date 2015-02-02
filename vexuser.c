@@ -42,9 +42,9 @@
 
 #include <stdlib.h>
 
-#include "ch.h"  		// needs for all ChibiOS programs
-#include "hal.h" 		// hardware abstraction layer header
-#include "vex.h"		// vex library header
+#include "ch.h"         // needs for all ChibiOS programs
+#include "hal.h"        // hardware abstraction layer header
+#include "vex.h"        // vex library header
 
 #include "smartmotor.h"
 #include "robotc_glue.h"
@@ -68,14 +68,14 @@ static  vexDigiCfg  dConfig[kVexDigital_Num] = {
 
 static  vexMotorCfg mConfig[kVexMotorNum] = {
         { kVexMotor_1,      kVexMotor393T,          kVexMotorNormal,       kVexSensorIME,        kImeChannel_1 }, // lift
-        { kVexMotor_2,      kVexMotor393T,      	kVexMotorReversed,     kVexSensorNone,        0 },
-        { kVexMotor_3,      kVexMotor393T,     		kVexMotorNormal,       kVexSensorNone,        0 },
+        { kVexMotor_2,      kVexMotor393T,          kVexMotorReversed,     kVexSensorNone,        0 },
+        { kVexMotor_3,      kVexMotor393T,          kVexMotorNormal,       kVexSensorNone,        0 },
         { kVexMotor_4,      kVexMotorUndefined,     kVexMotorNormal,       kVexSensorNone,        0 },
         { kVexMotor_5,      kVexMotorUndefined,     kVexMotorNormal,       kVexSensorNone,        0 },
         { kVexMotor_6,      kVexMotorUndefined,     kVexMotorNormal,       kVexSensorNone,        0 },
         { kVexMotor_7,      kVexMotorUndefined,     kVexMotorNormal,       kVexSensorNone,        0 },
-        { kVexMotor_8,      kVexMotor393T,      	kVexMotorReversed,     kVexSensorNone,        0 },
-        { kVexMotor_9,      kVexMotor393T,      	kVexMotorNormal,       kVexSensorNone,        0 },
+        { kVexMotor_8,      kVexMotor393T,          kVexMotorReversed,     kVexSensorNone,        0 },
+        { kVexMotor_9,      kVexMotor393T,          kVexMotorNormal,       kVexSensorNone,        0 },
         { kVexMotor_10,     kVexMotor393T,          kVexMotorNormal,       kVexSensorNone,        0 }
 };
 
@@ -88,7 +88,7 @@ static  vexMotorCfg mConfig[kVexMotorNum] = {
 #define     MotorLB             kVexMotor_8
 #define     MotorRB             kVexMotor_9
 
-task	LiftTask(void *arg);
+task    LiftTask(void *arg);
 
 /*-----------------------------------------------------------------------------*/
 /*  Drive control task                                                         */
@@ -187,8 +187,8 @@ DriveTask(void *arg)
 void
 vexUserSetup()
 {
-	vexDigitalConfigure( dConfig, DIG_CONFIG_SIZE( dConfig ) );
-	vexMotorConfigure( mConfig, MOT_CONFIG_SIZE( mConfig ) );
+    vexDigitalConfigure( dConfig, DIG_CONFIG_SIZE( dConfig ) );
+    vexMotorConfigure( mConfig, MOT_CONFIG_SIZE( mConfig ) );
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -240,29 +240,29 @@ vexAutonomous( void *arg )
 msg_t
 vexOperator( void *arg )
 {
-	int16_t		blink = 0;
+    int16_t     blink = 0;
 
-	(void)arg;
+    (void)arg;
 
-	// Must call this
-	vexTaskRegister("operator");
+    // Must call this
+    vexTaskRegister("operator");
 
     // control tasks
     //StartTask( DriveTask );
-	StartTask( LiftTask );
+    StartTask( LiftTask );
 
 
-	// Run until asked to terminate
-	while(!chThdShouldTerminate())
-		{
-		// flash led/digi out
-		vexDigitalPinSet( kVexDigital_1, (blink++ >> 3) & 1);
+    // Run until asked to terminate
+    while(!chThdShouldTerminate())
+        {
+        // flash led/digi out
+        vexDigitalPinSet( kVexDigital_1, (blink++ >> 3) & 1);
 
-		// Don't hog cpu
-		vexSleep( 25 );
-		}
+        // Don't hog cpu
+        vexSleep( 25 );
+        }
 
-	return (msg_t)0;
+    return (msg_t)0;
 }
 
 

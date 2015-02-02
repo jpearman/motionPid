@@ -62,13 +62,13 @@ typedef struct {
     } vexPreset;
 
 void    PresetInit( vexPreset *v );
-void	PresetAdd( vexPreset *v, int position );
-void	PresetSetTolerance( vexPreset *v, short tolerance );
-short	PresetGetNextPosition( vexPreset *v, int position, short dir );
-void	PresetSet( vexPreset *v, short p );
-short	PresetGetNum( vexPreset *v );
-long	PresetCurrentPosition( vexPreset *v );
-int		PresetIsValid( vexPreset *v );
+void    PresetAdd( vexPreset *v, int position );
+void    PresetSetTolerance( vexPreset *v, short tolerance );
+short   PresetGetNextPosition( vexPreset *v, int position, short dir );
+void    PresetSet( vexPreset *v, short p );
+short   PresetGetNum( vexPreset *v );
+long    PresetCurrentPosition( vexPreset *v );
+int     PresetIsValid( vexPreset *v );
 
 #ifdef __cplusplus
 }
